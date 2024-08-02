@@ -1,0 +1,144 @@
+[gd_scene load_steps=19 format=3 uid="uid://djlmbj0l6d5ub"]
+
+[ext_resource type="Texture2D" uid="uid://ckpi0jlqb1c8o" path="res://Assets/Placeholder/coin.png" id="1_4f85a"]
+[ext_resource type="Script" path="res://Scripts/Background.gd" id="1_7wcig"]
+[ext_resource type="Texture2D" uid="uid://cudu8jl7hbf3t" path="res://Assets/Placeholder/ninja.png" id="1_j0ody"]
+[ext_resource type="Texture2D" uid="uid://br4avg1jw74d8" path="res://Assets/Placeholder/floor.png" id="1_l44fk"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_xmaca"]
+[ext_resource type="Script" path="res://Scenes/UIController.gd" id="1_ysc5o"]
+[ext_resource type="FontFile" uid="uid://b1evohhvo6w34" path="res://Assets/Ninja Note.otf" id="2_2mq5b"]
+[ext_resource type="Texture2D" uid="uid://6axnqdtj4nie" path="res://Assets/Placeholder/background.jpg" id="2_en0km"]
+[ext_resource type="Script" path="res://Scenes/Spawner.gd" id="2_wlbxh"]
+[ext_resource type="PackedScene" uid="uid://bf2dvthrvy8yb" path="res://Scenes/Objects/CoinPatterns/coin_pattern1.tscn" id="3_llkjh"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="3_ql1iu"]
+[ext_resource type="PackedScene" uid="uid://0hl6waka3vkr" path="res://Scenes/Objects/CoinPatterns/coin_pattern3.tscn" id="5_ed6em"]
+[ext_resource type="PackedScene" uid="uid://tmrxpkno0k7b" path="res://Scenes/Objects/CoinPatterns/coin_pattern2.tscn" id="6_5w25i"]
+[ext_resource type="PackedScene" uid="uid://hdw6v7m4vy24" path="res://Scenes/Objects/CoinPatterns/coin_pattern4.tscn" id="6_k2msg"]
+[ext_resource type="Script" path="res://Scripts/Trail2D.gd" id="7_kadsy"]
+[ext_resource type="Script" path="res://Scenes/Shadow.gd" id="12_pvgre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjy21"]
+size = Vector2(1280, 144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cw18"]
+size = Vector2(58, 84)
+
+[node name="Game" type="Node2D"]
+
+[node name="UIManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ysc5o")
+
+[node name="TextureRect" type="TextureRect" parent="UIManager"]
+layout_mode = 1
+offset_left = 28.0
+offset_top = 26.0
+offset_right = 540.0
+offset_bottom = 538.0
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_4f85a")
+
+[node name="Label" type="Label" parent="UIManager"]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 24.0
+offset_right = 218.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("2_2mq5b")
+theme_override_font_sizes/font_size = 40
+text = "0"
+
+[node name="GameManager" type="Node" parent="." groups=["GameManager"]]
+script = ExtResource("1_xmaca")
+time_scale = 0.8
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(1337, 51)
+script = ExtResource("2_wlbxh")
+coin_patterns = Array[PackedScene]([ExtResource("3_llkjh"), ExtResource("6_5w25i"), ExtResource("5_ed6em"), ExtResource("6_k2msg")])
+
+[node name="Timer" type="Timer" parent="Spawner"]
+wait_time = 3.0
+autostart = true
+
+[node name="Background" type="ParallaxBackground" parent="."]
+follow_viewport_enabled = true
+scroll_ignore_camera_zoom = true
+script = ExtResource("1_7wcig")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1500, 0)
+
+[node name="Floor" type="Sprite2D" parent="Background/ParallaxLayer2"]
+position = Vector2(751, 323)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_en0km")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+position = Vector2(0, 586)
+motion_mirroring = Vector2(1462.5, 0)
+
+[node name="Floor" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(731.25, 150)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_l44fk")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(642, 700)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_fjy21")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(329, 622)
+script = ExtResource("3_ql1iu")
+
+[node name="Shadows" type="Node2D" parent="Player"]
+visible = false
+
+[node name="Sprite2" type="Sprite2D" parent="Player/Shadows" node_paths=PackedStringArray("main_sprite")]
+modulate = Color(1, 1, 1, 0.784314)
+position = Vector2(0, -40)
+scale = Vector2(0.133, 0.133)
+texture = ExtResource("1_j0ody")
+script = ExtResource("12_pvgre")
+main_sprite = NodePath("../../Sprite")
+
+[node name="Sprite3" type="Sprite2D" parent="Player/Shadows" node_paths=PackedStringArray("main_sprite")]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(0, -40)
+scale = Vector2(0.133, 0.133)
+texture = ExtResource("1_j0ody")
+script = ExtResource("12_pvgre")
+main_sprite = NodePath("../../Sprite")
+delay = 6
+
+[node name="Sprite4" type="Sprite2D" parent="Player/Shadows" node_paths=PackedStringArray("main_sprite")]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(0, -40)
+scale = Vector2(0.133, 0.133)
+texture = ExtResource("1_j0ody")
+script = ExtResource("12_pvgre")
+main_sprite = NodePath("../../Sprite")
+delay = 9
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+position = Vector2(0, -40)
+scale = Vector2(0.133, 0.133)
+texture = ExtResource("1_j0ody")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, -43)
+shape = SubResource("RectangleShape2D_7cw18")
+
+[node name="Line2D" type="Line2D" parent="Player"]
+visible = false
+position = Vector2(1, -46)
+script = ExtResource("7_kadsy")
+length = 10000
