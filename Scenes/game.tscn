@@ -1,30 +1,25 @@
-[gd_scene load_steps=25 format=3 uid="uid://djlmbj0l6d5ub"]
+[gd_scene load_steps=26 format=3 uid="uid://djlmbj0l6d5ub"]
 
 [ext_resource type="Texture2D" uid="uid://ckpi0jlqb1c8o" path="res://Assets/Placeholder/coin.png" id="1_4f85a"]
 [ext_resource type="Script" path="res://Scripts/Background.gd" id="1_7wcig"]
 [ext_resource type="Texture2D" uid="uid://cudu8jl7hbf3t" path="res://Assets/Placeholder/ninja.png" id="1_j0ody"]
 [ext_resource type="Texture2D" uid="uid://br4avg1jw74d8" path="res://Assets/Placeholder/floor.png" id="1_l44fk"]
 [ext_resource type="Script" path="res://Scripts/GameManager.gd" id="1_xmaca"]
-[ext_resource type="Script" path="res://Scenes/UIController.gd" id="1_ysc5o"]
+[ext_resource type="Script" path="res://Scripts/UIController.gd" id="1_ysc5o"]
 [ext_resource type="FontFile" uid="uid://b1evohhvo6w34" path="res://Assets/Ninja Note.otf" id="2_2mq5b"]
 [ext_resource type="Texture2D" uid="uid://6axnqdtj4nie" path="res://Assets/Placeholder/background.jpg" id="2_en0km"]
-[ext_resource type="Script" path="res://Scenes/Spawner.gd" id="2_wlbxh"]
+[ext_resource type="Script" path="res://Scripts/Spawner.gd" id="2_wlbxh"]
 [ext_resource type="PackedScene" uid="uid://bf2dvthrvy8yb" path="res://Scenes/Objects/CoinPatterns/coin_pattern1.tscn" id="3_llkjh"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="3_ql1iu"]
+[ext_resource type="Script" path="res://Scripts/HazardManager.gd" id="5_5flql"]
 [ext_resource type="PackedScene" uid="uid://0hl6waka3vkr" path="res://Scenes/Objects/CoinPatterns/coin_pattern3.tscn" id="5_ed6em"]
 [ext_resource type="PackedScene" uid="uid://tmrxpkno0k7b" path="res://Scenes/Objects/CoinPatterns/coin_pattern2.tscn" id="6_5w25i"]
 [ext_resource type="PackedScene" uid="uid://hdw6v7m4vy24" path="res://Scenes/Objects/CoinPatterns/coin_pattern4.tscn" id="6_k2msg"]
 [ext_resource type="Script" path="res://Scripts/Trail2D.gd" id="7_kadsy"]
-[ext_resource type="Script" path="res://Scenes/Shadow.gd" id="12_pvgre"]
+[ext_resource type="Script" path="res://Scripts/Shadow.gd" id="12_pvgre"]
 [ext_resource type="Texture2D" uid="uid://ckop28ixt6yqb" path="res://Assets/Placeholder/comic-box.png" id="17_qd5at"]
 [ext_resource type="Texture2D" uid="uid://3tlrsfovtqa3" path="res://Assets/warning-sign.png" id="18_ri4yh"]
 [ext_resource type="Texture2D" uid="uid://botg7eb0oawda" path="res://Assets/Placeholder/plant-box.png" id="19_6kttl"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjy21"]
-size = Vector2(1280, 144)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cw18"]
-size = Vector2(58, 84)
 
 [sub_resource type="Animation" id="Animation_jm2pc"]
 length = 0.001
@@ -69,13 +64,13 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_55cik"]
 resource_name = "default"
-length = 4.0
+length = 4.5
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -85,7 +80,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.486275, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.486275, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.490196, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5)
+"times": PackedFloat32Array(0.5, 1, 1.5, 2, 2.5, 3)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -96,7 +91,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(0.14, -0.25, 0, 0.25, 0, 0.14, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2, 2.5)
+"times": PackedFloat32Array(0.5, 2.5, 3)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -107,7 +102,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(2.5, 3)
+"times": PackedFloat32Array(3, 3.5)
 }
 tracks/3/type = "bezier"
 tracks/3/imported = false
@@ -116,9 +111,9 @@ tracks/3/path = NodePath(".:scale:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 3.5, 4)
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 4, 4.5)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_un7mu"]
@@ -127,39 +122,45 @@ _data = {
 "default": SubResource("Animation_55cik")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjy21"]
+size = Vector2(1280, 144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cw18"]
+size = Vector2(58, 84)
+
 [node name="Game" type="Node2D"]
 
-[node name="UIManager" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_ysc5o")
+[node name="HazardManager" type="Node" parent="." groups=["HazardManager"]]
+script = ExtResource("5_5flql")
 
-[node name="TextureRect" type="TextureRect" parent="UIManager"]
-layout_mode = 1
-offset_left = 28.0
-offset_top = 26.0
-offset_right = 540.0
-offset_bottom = 538.0
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("1_4f85a")
+[node name="DangerBox" type="Sprite2D" parent="HazardManager"]
+position = Vector2(1108, 303)
+scale = Vector2(1, 1e-05)
+texture = ExtResource("17_qd5at")
 
-[node name="Label" type="Label" parent="UIManager"]
-layout_mode = 0
-offset_left = 79.0
-offset_top = 24.0
-offset_right = 218.0
-offset_bottom = 66.0
-theme_override_fonts/font = ExtResource("2_2mq5b")
-theme_override_font_sizes/font_size = 40
-text = "0"
+[node name="WaningSign" type="Sprite2D" parent="HazardManager/DangerBox"]
+modulate = Color(0.631373, 0.0627451, 0.0627451, 1)
+position = Vector2(-4, -19)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("18_ri4yh")
+
+[node name="HazardPicture" type="Sprite2D" parent="HazardManager/DangerBox"]
+position = Vector2(-2, -19)
+scale = Vector2(1, 1e-05)
+texture = ExtResource("19_6kttl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HazardManager/DangerBox"]
+libraries = {
+"": SubResource("AnimationLibrary_un7mu")
+}
 
 [node name="GameManager" type="Node" parent="." groups=["GameManager"]]
 script = ExtResource("1_xmaca")
-time_scale = 0.8
+
+[node name="SpawnTimer" type="Timer" parent="GameManager"]
+wait_time = 3.0
+one_shot = true
+autostart = true
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -183,14 +184,10 @@ position = Vector2(731.25, 150)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("1_l44fk")
 
-[node name="Spawner" type="Node2D" parent="."]
+[node name="CoinSpawner" type="Node2D" parent="."]
 position = Vector2(1337, 51)
 script = ExtResource("2_wlbxh")
 coin_patterns = Array[PackedScene]([ExtResource("3_llkjh"), ExtResource("6_5w25i"), ExtResource("5_ed6em"), ExtResource("6_k2msg")])
-
-[node name="Timer" type="Timer" parent="Spawner"]
-wait_time = 3.0
-autostart = true
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(642, 700)
@@ -203,7 +200,6 @@ position = Vector2(329, 622)
 script = ExtResource("3_ql1iu")
 
 [node name="Shadows" type="Node2D" parent="Player"]
-visible = false
 
 [node name="Sprite2" type="Sprite2D" parent="Player/Shadows" node_paths=PackedStringArray("main_sprite")]
 modulate = Color(1, 1, 1, 0.784314)
@@ -246,22 +242,30 @@ position = Vector2(1, -46)
 script = ExtResource("7_kadsy")
 length = 10000
 
-[node name="DangerBox" type="Sprite2D" parent="."]
-position = Vector2(1108, 303)
-texture = ExtResource("17_qd5at")
+[node name="UIManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ysc5o")
 
-[node name="WaningSign" type="Sprite2D" parent="DangerBox"]
-modulate = Color(0.631373, 0.0627451, 0.0627451, 1)
-position = Vector2(-4, -19)
-scale = Vector2(0.14, 0.14)
-texture = ExtResource("18_ri4yh")
+[node name="TextureRect" type="TextureRect" parent="UIManager"]
+layout_mode = 1
+offset_left = 28.0
+offset_top = 26.0
+offset_right = 540.0
+offset_bottom = 538.0
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_4f85a")
 
-[node name="HazardPicture" type="Sprite2D" parent="DangerBox"]
-position = Vector2(-2, -19)
-scale = Vector2(1, 1e-05)
-texture = ExtResource("19_6kttl")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DangerBox"]
-libraries = {
-"": SubResource("AnimationLibrary_un7mu")
-}
+[node name="Label" type="Label" parent="UIManager"]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 24.0
+offset_right = 218.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("2_2mq5b")
+theme_override_font_sizes/font_size = 40
+text = "0"

@@ -21,3 +21,5 @@ func _physics_process(delta: float) -> void:
 
 	if(len(position_queue) > delay):
 		global_position = position_queue.pop_front()
+	else:
+		global_position = position_queue.front()
