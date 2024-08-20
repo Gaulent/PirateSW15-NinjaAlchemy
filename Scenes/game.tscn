@@ -161,6 +161,28 @@ text = "0"
 script = ExtResource("1_xmaca")
 time_scale = 0.8
 
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Bosque" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(1500, 0)
+script = ExtResource("1_7wcig")
+
+[node name="Floor" type="Sprite2D" parent="Background/Bosque"]
+position = Vector2(751, 323)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_en0km")
+
+[node name="Suelo" type="Parallax2D" parent="Background"]
+scroll_offset = Vector2(0, 586)
+repeat_size = Vector2(1463.24, 0)
+script = ExtResource("1_7wcig")
+
+[node name="Floor" type="Sprite2D" parent="Background/Suelo"]
+position = Vector2(731.25, 150)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_l44fk")
+
 [node name="Spawner" type="Node2D" parent="."]
 position = Vector2(1337, 51)
 script = ExtResource("2_wlbxh")
@@ -169,29 +191,6 @@ coin_patterns = Array[PackedScene]([ExtResource("3_llkjh"), ExtResource("6_5w25i
 [node name="Timer" type="Timer" parent="Spawner"]
 wait_time = 3.0
 autostart = true
-
-[node name="Background" type="ParallaxBackground" parent="."]
-follow_viewport_enabled = true
-scroll_ignore_camera_zoom = true
-script = ExtResource("1_7wcig")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(1500, 0)
-
-[node name="Floor" type="Sprite2D" parent="Background/ParallaxLayer2"]
-position = Vector2(751, 323)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_en0km")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
-position = Vector2(0, 586)
-motion_mirroring = Vector2(1462.5, 0)
-
-[node name="Floor" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(731.25, 150)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("1_l44fk")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(642, 700)

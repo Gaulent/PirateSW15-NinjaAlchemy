@@ -1,4 +1,4 @@
-extends ParallaxBackground
+extends Parallax2D
 
 @onready var game_manager: GameManager = get_tree().get_first_node_in_group('GameManager')
 @onready var speed = game_manager.speed
@@ -10,4 +10,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	scroll_base_offset.x += speed * delta
+	scroll_offset.x += speed * delta * scroll_scale.x

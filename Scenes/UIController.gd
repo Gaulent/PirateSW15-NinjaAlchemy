@@ -11,4 +11,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_score(new_score):
 	$Label.text = str(new_score)
-

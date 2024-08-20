@@ -2,10 +2,10 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
+/.idea.PirateSW15-NinjaAlchemy.iml
 /contentModel.xml
-/modules.xml
-/.idea.NinjaAlchemy_PirateSoftware15.iml
 /projectSettingsUpdater.xml
+/modules.xml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
